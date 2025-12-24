@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Factory Accounts</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+    <div>
+        <h2 class="lang en">🐟 Fish Factory Calculations</h2>
+        <h2 class="lang te">🐟 చేపల ఫ్యాక్టరీ లెక్కింపులు</h2>
+
+
+        <p class="lang en">Accounting Dashboard</p>
+        <p class="lang te">ఖాతాల డాష్‌బోర్డ్</p>
+    </div>
+
+    <div class="lang-switch">
+        <span>EN</span>
+        <label class="switch">
+            <input type="checkbox" id="langToggle">
+            <span class="slider"></span>
+        </label>
+        <span>తెలుగు</span>
+    </div>
+</header>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <ul>
+            <li class="active">
+                <span class="lang en">Average Calculation</span>
+                <span class="lang te">సగటు లెక్కింపు</span>
+            </li>
+            <!-- <li>
+                <span class="lang en">Sales</span>
+                <span class="lang te">అమ్మకాలు</span>
+            </li>
+            <li>
+                <span class="lang en">Purchases</span>
+                <span class="lang te">కొనుగోళ్లు</span>
+            </li>
+            <li>
+                <span class="lang en">Expenses</span>
+                <span class="lang te">ఖర్చులు</span>
+            </li>
+            <li>
+                <span class="lang en">Payments</span>
+                <span class="lang te">చెల్లింపులు</span>
+            </li>
+            <li>
+                <span class="lang en">Reports</span>
+                <span class="lang te">రిపోర్టులు</span>
+            </li> -->
+        </ul>
+    </aside>
+
+    <main class="content">
+
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h3 class="lang en">Average Calculation</h3>
+            <h3 class="lang te">సగటు లెక్కింపు</h3>
+        </div>
+
+        <!-- CARD AREA (HORIZONTAL CENTER ONLY) -->
+        <div class="avg-wrapper">
+            <div class="avg-card">
+
+                <div class="form-group">
+                    <label class="lang en">Rohu</label>
+                    <label class="lang te">రోహు</label>
+                    <input type="number" placeholder="Enter Rohu value">
+                </div>
+
+                <div class="form-group">
+                    <label class="lang en">Katla</label>
+                    <label class="lang te">కట్లా</label>
+                    <input type="number" placeholder="Enter Katla value">
+                </div>
+
+                <button class="calc-btn">
+                    <span class="lang en">Calculate Average</span>
+                    <span class="lang te">సగటు లెక్కించండి</span>
+                </button>
+
+                <div class="avg-result" id="avgResult"></div>
+                <div class="per-tray-result" id="perTrayResult"></div>
+
+            </div>
+        </div>
+</main>
+
+
+
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

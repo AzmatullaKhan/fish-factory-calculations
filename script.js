@@ -1,12 +1,19 @@
+// =========================
+// script.js
+// =========================
+
 // AUTO DATE
 
-const today = new Date().toISOString().split('T')[0];
+const today =
+  new Date().toISOString().split('T')[0];
 
-document.getElementById("todayDate").value = today;
+document.getElementById("todayDate").value =
+  today;
 
 // BILL NUMBER
 
-let billNumber = localStorage.getItem("billNo");
+let billNumber =
+  localStorage.getItem("billNo");
 
 if (!billNumber) {
 
@@ -16,82 +23,83 @@ if (!billNumber) {
 
 else {
 
-  billNumber = parseInt(billNumber) + 1;
+  billNumber =
+    parseInt(billNumber) + 1;
 
 }
 
 localStorage.setItem("billNo", billNumber);
 
-document.getElementById("billNo").value = billNumber;
+document.getElementById("billNo").value =
+  billNumber;
 
+// =========================
 // MAIN CALCULATION
+// =========================
 
 function calculateRow(element) {
 
-  const currentRow = element.closest("tr");
+  const currentRow =
+    element.closest("tr");
 
-  const type = currentRow.dataset.type;
-
-  // ALL ROWS OF SAME TYPE
+  const type =
+    currentRow.dataset.type;
 
   const rows =
-    document.querySelectorAll(`tr[data-type="${type}"]`);
+    document.querySelectorAll(
+      `tr[data-type="${type}"]`
+    );
 
   let totalGross = 0;
 
   rows.forEach(row => {
 
     const boxes =
-      parseFloat(row.querySelector(".boxes").value) || 0;
+      parseFloat(
+        row.querySelector(".boxes").value
+      ) || 0;
 
     const kgs =
-      parseFloat(row.querySelector(".kgs").value) || 0;
+      parseFloat(
+        row.querySelector(".kgs").value
+      ) || 0;
 
     totalGross += (boxes * kgs);
 
   });
 
-  // FIRST ROW
-
   const firstRow = rows[0];
 
   const qty =
-    parseFloat(firstRow.querySelector(".qty").value) || 0;
+    parseFloat(
+      firstRow.querySelector(".qty").value
+    ) || 0;
 
   const basicPrize =
-    parseFloat(document.getElementById("basicPrize").value) || 0;
-
-  // BASIC SIZES
+    parseFloat(
+      document.getElementById("basicPrize").value
+    ) || 0;
 
   const rohuSize =
-    parseFloat(document.getElementById("rohuSize").value) || 0;
+    parseFloat(
+      document.getElementById("rohuSize").value
+    ) || 0;
 
   const katlaSize =
-    parseFloat(document.getElementById("katlaSize").value) || 0;
-
-  const pungusSize =
-    parseFloat(document.getElementById("pungusSize").value) || 0;
-
-  const roopchandSize =
-    parseFloat(document.getElementById("roopchandSize").value) || 0;
-
-  // GROSS
+    parseFloat(
+      document.getElementById("katlaSize").value
+    ) || 0;
 
   const gross = totalGross;
 
-  // -5%
-
   const minus = gross * 0.05;
-
-  // NET
 
   const net = gross - minus;
 
-  // AVERAGE
-
-  const avg = qty
-    ? Math.floor((gross / qty) * 1000) / 1000
-    : 0;
+  const avg =
+    qty
+      ? Math.floor((gross / qty) * 1000) / 1000
+      : 0;
 
   const avg1000 = avg * 1000;
 
@@ -101,152 +109,111 @@ function calculateRow(element) {
   // ROHU
   // =========================
 
+  if (type === "Rohu") {
+
+    rate =
+      basicPrize +
+      (((avg1000 - 1000) / 2) / 100);
+
+    if (avg1000 < rohuSize) {
+
+      rate =
+        rate -
+        ((rohuSize - avg1000) * 0.02);
+
+    }
+
+    if (avg1000 < 1000) {
+
+      rate =
+        rate -
+        ((1000 - avg1000) * 0.01);
+
+    }
+
+  }
+
   // =========================
-// ROHU
-// =========================
+  // RK
+  // =========================
 
-if (type === "Rohu") {
+  else if (type === "RK") {
 
-  // BASE RATE
-
-  rate =
-    basicPrize +
-    (((avg1000 - 1000) / 2) / 100);
-
-  // PENALTY IF BELOW BASIC SIZE
-
-  if (avg1000 < rohuSize) {
+    const rohuRow =
+      document.querySelector(
+        `tr[data-type="Rohu"]`
+      );
 
     rate =
-      rate -
-      ((rohuSize - avg1000) * 0.02);
+      parseFloat(
+        rohuRow.querySelector(".rate").value
+      ) || 0;
 
   }
 
-  // EXTRA PENALTY
+  // =========================
+  // KATLA
+  // =========================
 
-  if (avg1000 < 1000) {
+  else if (type === "Katla") {
 
     rate =
-      rate -
-      ((1000 - avg1000) * 0.01);
+      basicPrize +
+      (((avg1000 - 2000) / 2) / 100);
+
+    if (avg1000 < katlaSize) {
+
+      rate =
+        rate -
+        ((katlaSize - avg1000) * 0.02);
+
+    }
+
+    if (avg1000 < 1000) {
+
+      rate =
+        rate -
+        ((1000 - avg1000) * 0.01);
+
+    }
 
   }
 
-}
+  // =========================
+  // PUNGUS
+  // USER RATE
+  // =========================
 
-// =========================
-// KATLA
-// =========================
-
-else if (type === "Katla") {
-
-  // BASE RATE
-
-  rate =
-    basicPrize +
-    (((avg1000 - 2000) / 2) / 100);
-
-  // PENALTY IF BELOW BASIC SIZE
-
-  if (avg1000 < katlaSize) {
+  else if (type === "Pungus") {
 
     rate =
-      rate -
-      ((katlaSize - avg1000) * 0.02);
+      parseFloat(
+        firstRow.querySelector(".rate").value
+      ) || 0;
 
   }
 
-  // EXTRA PENALTY
+  // =========================
+  // ROOPCHAND
+  // USER RATE
+  // =========================
 
-  if (avg1000 < 1000) {
-
-    rate =
-      rate -
-      ((1000 - avg1000) * 0.01);
-
-  }
-
-}
-
-// =========================
-// PUNGUS
-// =========================
-
-else if (type === "Pungus") {
-
-  // BASE RATE
-
-  rate =
-    basicPrize +
-    (((avg1000 - 1000) / 2) / 100);
-
-  // PENALTY IF BELOW BASIC SIZE
-
-  if (avg1000 < pungusSize) {
+  else if (type === "RoopChand") {
 
     rate =
-      rate -
-      ((pungusSize - avg1000) * 0.02);
+      parseFloat(
+        firstRow.querySelector(".rate").value
+      ) || 0;
 
   }
-
-  // EXTRA PENALTY
-
-  if (avg1000 < 1000) {
-
-    rate =
-      rate -
-      ((1000 - avg1000) * 0.01);
-
-  }
-
-}
-
-// =========================
-// ROOPCHAND
-// =========================
-
-else if (type === "RoopChand") {
-
-  // BASE RATE
-
-  rate =
-    basicPrize +
-    (((avg1000 - 1000) / 2) / 100);
-
-  // PENALTY IF BELOW BASIC SIZE
-
-  if (avg1000 < roopchandSize) {
-
-    rate =
-      rate -
-      ((roopchandSize - avg1000) * 0.02);
-
-  }
-
-  // EXTRA PENALTY
-
-  if (avg1000 < 1000) {
-
-    rate =
-      rate -
-      ((1000 - avg1000) * 0.01);
-
-  }
-
-}
-
-  // ROUND RATE
 
   const roundedRate =
     Math.floor(rate * 100) / 100;
 
-  // TOTAL
+  const total =
+    net * roundedRate;
 
-  const total = net * roundedRate;
-
-  // UPDATE FIRST ROW
+  // UPDATE VALUES
 
   firstRow.querySelector(".gross").value =
     gross.toFixed(3);
@@ -257,11 +224,38 @@ else if (type === "RoopChand") {
   firstRow.querySelector(".net").value =
     net.toFixed(3);
 
-  firstRow.querySelector(".avg").value =
-    avg.toFixed(3);
+  // AVG
 
-  firstRow.querySelector(".rate").value =
-    roundedRate.toFixed(2);
+  if (
+    type === "Rohu" ||
+    type === "Katla"
+  ) {
+
+    firstRow.querySelector(".avg").value =
+      avg.toFixed(3);
+
+  }
+
+  else {
+
+    firstRow.querySelector(".avg").value = "";
+
+  }
+
+  // AUTO RATE
+
+  if (
+    type === "Rohu" ||
+    type === "Katla" ||
+    type === "RK"
+  ) {
+
+    firstRow.querySelector(".rate").value =
+      roundedRate.toFixed(2);
+
+  }
+
+  // TOTAL
 
   firstRow.querySelector(".total").value =
     total.toFixed(2);
@@ -270,71 +264,55 @@ else if (type === "RoopChand") {
 
 }
 
+// =========================
 // TOTALS
+// =========================
 
 function calculateTotals() {
 
   let total = 0;
 
   const types =
-    ["Rohu", "Katla", "Pungus", "RoopChand"];
+    ["Rohu", "RK", "Katla", "Pungus", "RoopChand"];
 
   types.forEach(type => {
 
     const row =
-      document.querySelector(`tr[data-type="${type}"]`);
+      document.querySelector(
+        `tr[data-type="${type}"]`
+      );
 
     if (row) {
 
       total +=
-        parseFloat(row.querySelector(".total").value) || 0;
+        parseFloat(
+          row.querySelector(".total").value
+        ) || 0;
 
     }
 
   });
-
-  // EXTRA ROWS
-
-  document.querySelectorAll(".extra-charge-row")
-    .forEach(row => {
-
-      const amount =
-        parseFloat(
-          row.querySelector(".extra-amount").innerText
-        ) || 0;
-
-      const operation = row.dataset.operation;
-
-      if (operation === "minus") {
-
-        total -= amount;
-
-      }
-
-      else {
-
-        total += amount;
-
-      }
-
-    });
 
   document.getElementById("grandTotal").innerText =
     total.toFixed(2);
 
 }
 
+// =========================
 // RECALCULATE
+// =========================
 
 function recalculateAllRows() {
 
   const types =
-    ["Rohu", "Katla", "Pungus", "RoopChand"];
+    ["Rohu", "RK", "Katla", "Pungus", "RoopChand"];
 
   types.forEach(type => {
 
     const row =
-      document.querySelector(`tr[data-type="${type}"]`);
+      document.querySelector(
+        `tr[data-type="${type}"]`
+      );
 
     if (row) {
 
@@ -346,7 +324,9 @@ function recalculateAllRows() {
 
 }
 
-// ADD FISH ROW
+// =========================
+// ADD ROW
+// =========================
 
 function addFishRow(type) {
 
@@ -354,9 +334,12 @@ function addFishRow(type) {
     document.querySelector("#billTable tbody");
 
   const rows =
-    tbody.querySelectorAll(`tr[data-type="${type}"]`);
+    tbody.querySelectorAll(
+      `tr[data-type="${type}"]`
+    );
 
-  const lastRow = rows[rows.length - 1];
+  const lastRow =
+    rows[rows.length - 1];
 
   const newRow =
     document.createElement("tr");
@@ -411,7 +394,9 @@ function addFishRow(type) {
 
 }
 
-// REMOVE FISH ROW
+// =========================
+// REMOVE ROW
+// =========================
 
 function removeFishRow(button) {
 
@@ -426,7 +411,26 @@ function removeFishRow(button) {
 
 }
 
+// =========================
+// SERIAL NUMBERS
+// =========================
+
+function updateSerialNumbers() {
+
+  document.querySelectorAll(
+    "#billTable tbody tr"
+  ).forEach((row, index) => {
+
+    row.cells[0].innerText =
+      index + 1;
+
+  });
+
+}
+
+// =========================
 // ADD EXTRA ROW
+// =========================
 
 function addDeductionRow(type) {
 
@@ -441,17 +445,21 @@ function addDeductionRow(type) {
   let totalGross = 0;
 
   const fishTypes =
-    ["Rohu", "Katla", "Pungus", "RoopChand"];
+    ["Rohu", "RK", "Katla", "Pungus", "RoopChand"];
 
   fishTypes.forEach(type => {
 
     const row =
-      document.querySelector(`tr[data-type="${type}"]`);
+      document.querySelector(
+        `tr[data-type="${type}"]`
+      );
 
     if (row) {
 
       totalGross +=
-        parseFloat(row.querySelector(".gross").value) || 0;
+        parseFloat(
+          row.querySelector(".gross").value
+        ) || 0;
 
     }
 
@@ -461,7 +469,9 @@ function addDeductionRow(type) {
 
   let operation = "minus";
 
+  // =========================
   // RITU COMMISSION
+  // =========================
 
   if (type === "Ritu Commission") {
 
@@ -471,11 +481,14 @@ function addDeductionRow(type) {
 
   }
 
+  // =========================
   // CM
+  // =========================
 
   else if (type === "CM") {
 
-    amount = totalGross * 0.95 * 0.25;
+    amount =
+      totalGross * 0.95 * 0.25;
 
     operation = "plus";
 
@@ -528,7 +541,9 @@ function addDeductionRow(type) {
 
 }
 
+// =========================
 // REMOVE EXTRA ROW
+// =========================
 
 function removeExtraRow(button) {
 
@@ -538,18 +553,5 @@ function removeExtraRow(button) {
   row.remove();
 
   calculateTotals();
-
-}
-
-// SERIAL NUMBERS
-
-function updateSerialNumbers() {
-
-  document.querySelectorAll("#billTable tbody tr")
-    .forEach((row, index) => {
-
-      row.cells[0].innerText = index + 1;
-
-    });
 
 }

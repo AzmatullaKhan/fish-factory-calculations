@@ -1,4 +1,6 @@
-<!-- index.html -->
+<!-- =========================
+index.html
+========================= -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -133,38 +135,22 @@
 
           </div>
 
-          <div class="form-group">
-
-            <label>Pungus</label>
-
-            <input type="number"
-              id="pungusSize"
-              oninput="recalculateAllRows()">
-
-          </div>
-
-          <div class="form-group">
-
-            <label>RoopChand</label>
-
-            <input type="number"
-              id="roopchandSize"
-              oninput="recalculateAllRows()">
-
-          </div>
-
         </div>
 
       </div>
 
     </div>
 
-    <!-- BUTTON SECTION -->
+    <!-- BUTTONS -->
 
     <div class="button-section">
 
       <button onclick="addFishRow('Rohu')">
         + Add Rohu
+      </button>
+
+      <button onclick="addFishRow('RK')">
+        + Add RK
       </button>
 
       <button onclick="addFishRow('Katla')">
@@ -199,11 +185,9 @@
 
     </div>
 
-    <!-- TABLE WRAPPER -->
+    <!-- TABLE -->
 
     <div class="table-wrapper">
-
-      <!-- TABLE -->
 
       <table id="billTable">
 
@@ -236,83 +220,130 @@
             <td>1</td>
 
             <td>
-
               <input type="text"
                 value="Rohu"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="boxes"
                 oninput="calculateRow(this)">
-
             </td>
 
             <td>
-
               <input type="number"
                 class="kgs"
                 oninput="calculateRow(this)">
-
             </td>
 
             <td>
-
               <input type="number"
                 class="gross readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="minus readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="net readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="qty"
                 oninput="calculateRow(this)">
-
             </td>
 
             <td>
-
               <input type="number"
                 class="avg readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="rate readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="total readonly"
                 readonly>
+            </td>
 
+          </tr>
+
+          <!-- RK -->
+
+          <tr data-type="RK">
+
+            <td>2</td>
+
+            <td>
+              <input type="text"
+                value="RK"
+                readonly>
+            </td>
+
+            <td>
+              <input type="number"
+                class="boxes"
+                oninput="calculateRow(this)">
+            </td>
+
+            <td>
+              <input type="number"
+                class="kgs"
+                oninput="calculateRow(this)">
+            </td>
+
+            <td>
+              <input type="number"
+                class="gross readonly"
+                readonly>
+            </td>
+
+            <td>
+              <input type="number"
+                class="minus readonly"
+                readonly>
+            </td>
+
+            <td>
+              <input type="number"
+                class="net readonly"
+                readonly>
+            </td>
+
+            <td>
+              <input type="number"
+                class="qty">
+            </td>
+
+            <td>
+              <input type="number"
+                class="avg readonly"
+                readonly>
+            </td>
+
+            <td>
+              <input type="number"
+                class="rate readonly"
+                readonly>
+            </td>
+
+            <td>
+              <input type="number"
+                class="total readonly"
+                readonly>
             </td>
 
           </tr>
@@ -321,86 +352,66 @@
 
           <tr data-type="Katla">
 
-            <td>2</td>
+            <td>3</td>
 
             <td>
-
               <input type="text"
                 value="Katla"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="boxes"
                 oninput="calculateRow(this)">
-
             </td>
 
             <td>
-
               <input type="number"
                 class="kgs"
                 oninput="calculateRow(this)">
-
             </td>
 
             <td>
-
               <input type="number"
                 class="gross readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="minus readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="net readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="qty"
                 oninput="calculateRow(this)">
-
             </td>
 
             <td>
-
               <input type="number"
                 class="avg readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="rate readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="total readonly"
                 readonly>
-
             </td>
 
           </tr>
@@ -409,86 +420,65 @@
 
           <tr data-type="Pungus">
 
-            <td>3</td>
+            <td>4</td>
 
             <td>
-
               <input type="text"
                 value="Pungus"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="boxes"
                 oninput="calculateRow(this)">
-
             </td>
 
             <td>
-
               <input type="number"
                 class="kgs"
                 oninput="calculateRow(this)">
-
             </td>
 
             <td>
-
               <input type="number"
                 class="gross readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="minus readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="net readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
-                class="qty"
-                oninput="calculateRow(this)">
-
+                class="qty">
             </td>
 
             <td>
-
               <input type="number"
                 class="avg readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
-                class="rate readonly"
-                readonly>
-
+                class="rate"
+                oninput="calculateRow(this)">
             </td>
 
             <td>
-
               <input type="number"
                 class="total readonly"
                 readonly>
-
             </td>
 
           </tr>
@@ -497,108 +487,81 @@
 
           <tr data-type="RoopChand">
 
-            <td>4</td>
+            <td>5</td>
 
             <td>
-
               <input type="text"
                 value="RoopChand"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="boxes"
                 oninput="calculateRow(this)">
-
             </td>
 
             <td>
-
               <input type="number"
                 class="kgs"
                 oninput="calculateRow(this)">
-
             </td>
 
             <td>
-
               <input type="number"
                 class="gross readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="minus readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
                 class="net readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
-                class="qty"
-                oninput="calculateRow(this)">
-
+                class="qty">
             </td>
 
             <td>
-
               <input type="number"
                 class="avg readonly"
                 readonly>
-
             </td>
 
             <td>
-
               <input type="number"
-                class="rate readonly"
-                readonly>
-
+                class="rate"
+                oninput="calculateRow(this)">
             </td>
 
             <td>
-
               <input type="number"
                 class="total readonly"
                 readonly>
-
             </td>
 
           </tr>
 
         </tbody>
 
-        <!-- FOOTER -->
-
         <tfoot id="tableFooter">
 
           <tr id="grandTotalRow">
 
             <td colspan="10">
-
               GROSS TOTAL
-
             </td>
 
             <td id="grandTotal">
-
               0.00
-
             </td>
 
           </tr>

@@ -14,10 +14,6 @@
 
 <style>
 
-/* =========================
-   GLOBAL
-========================= */
-
 * {
   margin: 0;
   padding: 0;
@@ -36,7 +32,6 @@ body {
   margin: auto;
 }
 
-/* CARD */
 .glass-card {
   background: white;
   padding: 20px;
@@ -45,16 +40,10 @@ body {
   border: 1px solid #ddd;
 }
 
-/* HEADER CENTER FIX */
 .header {
   position: relative;
   text-align: center;
   margin-bottom: 20px;
-}
-
-/* TITLE CENTER */
-.title-section {
-  text-align: center;
 }
 
 .title-section h1 {
@@ -67,16 +56,17 @@ body {
   color: #666;
 }
 
-/* DATE TOP RIGHT */
+/* DATE INPUT */
 .date-box {
   position: absolute;
   right: 0;
   top: 0;
-  padding: 8px 12px;
-  background: #f1f1f1;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 13px;
+}
+
+.date-box input {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 /* FORM */
@@ -104,7 +94,6 @@ body {
   gap: 15px;
 }
 
-/* INPUT */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -117,11 +106,12 @@ body {
 }
 
 .input-group input {
-  padding: 14px 12px;   /* increased height */
+  padding: 14px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
   outline: none;
+  text-transform: uppercase;
 }
 
 /* SUMMARY */
@@ -137,11 +127,6 @@ body {
   border: 1px solid #ddd;
   padding: 15px;
   border-radius: 8px;
-}
-
-.summary-title {
-  font-size: 13px;
-  color: #666;
 }
 
 .summary-amount {
@@ -171,21 +156,7 @@ body {
 .pdf-btn { background: #dc3545; }
 .share-btn { background: #28a745; }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 13px;
-  color: #777;
-}
-
-/* RESPONSIVE */
 @media(max-width:768px){
-
-  .glass-card {
-    width: 100%;
-  }
-
   .form-row,
   .bottom-grid,
   .summary {
@@ -195,19 +166,6 @@ footer {
   .date-box {
     position: static;
     margin-top: 10px;
-    display: inline-block;
-  }
-}
-
-@media(max-width:768px){
-
-  .input-group input {
-    padding: 10px 10px;   /* reduced height */
-    font-size: 13px;      /* slightly smaller text */
-  }
-
-  .input-group {
-    gap: 4px;             /* tighter spacing */
   }
 }
 
@@ -220,7 +178,6 @@ footer {
 
   <div class="glass-card" id="pdfContent">
 
-    <!-- HEADER -->
     <div class="header">
 
       <div class="title-section">
@@ -228,7 +185,10 @@ footer {
         <p>Premium Return Slip Generator</p>
       </div>
 
-      <div class="date-box" id="currentDate"></div>
+      <!-- USER DATE -->
+      <div class="date-box">
+        <input type="date" id="currentDateInput">
+      </div>
 
     </div>
 
@@ -237,7 +197,7 @@ footer {
 
       <div class="input-group">
         <label>Vehicle Number</label>
-        <input id="vehicleNumber" placeholder="Enter vehicle number">
+        <input id="vehicleNumber" placeholder="ENTER VEHICLE NUMBER">
       </div>
 
       <div class="form-row">
@@ -322,16 +282,19 @@ footer {
 
 </div>
 
-<footer>© 2026 ARM Fish & Prawns Return Management</footer>
+<footer style="text-align:center;margin-top:20px;font-size:13px;">
+© 2026 ARM Fish & Prawns Return Management
+</footer>
 
 <script>
 
-/* DATE */
-document.getElementById("currentDate").innerText =
-new Date().toLocaleDateString("en-IN",{day:"2-digit",month:"long",year:"numeric"});
+/* VEHICLE UPPERCASE ONLY */
+document.getElementById("vehicleNumber").addEventListener("input", function () {
+  this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+});
 
-/* INPUT FORMAT */
-const ids=["returnAmount","loadingAmount","treluAmount","extraExpenses","advanceAmount"];
+/* NUMBER FORMAT FIELDS */
+const ids = ["returnAmount","loadingAmount","treluAmount","extraExpenses","advanceAmount"];
 
 ids.forEach(id=>{
 document.getElementById(id).addEventListener("input",function(){
@@ -345,7 +308,7 @@ function get(id){
 return parseInt(document.getElementById(id).value.replace(/,/g,''))||0;
 }
 
-/* CALC */
+/* CALCULATION */
 function calc(){
 const total =
 get("returnAmount")+
@@ -363,23 +326,22 @@ document.getElementById("balanceAmount").innerText="₹"+balance.toLocaleString(
 function downloadPDF(){
 html2pdf().from(document.getElementById("pdfContent")).set({
 margin:0.2,
-filename:"ARM_Bill.pdf",
+filename:"ARM_Return_Slip.pdf",
 html2canvas:{scale:2,backgroundColor:"#fff"},
 jsPDF:{format:"a4"}
 }).save();
 }
 
-/* SNAPSHOT FIX */
+/* SHARE */
 async function shareSnapshot() {
 
   const el = document.getElementById("pdfContent");
 
-  // wait for fonts + layout stabilization
   await document.fonts.ready;
   await new Promise(r => setTimeout(r, 300));
 
   const canvas = await html2canvas(el, {
-    scale: 3,              // ↑ sharper + prevents missing digits
+    scale: 3,
     useCORS: true,
     backgroundColor: "#ffffff",
     scrollX: 0,
@@ -390,22 +352,13 @@ async function shareSnapshot() {
 
   canvas.toBlob(async (blob) => {
 
-    const file = new File([blob], "ARM_Bill.png", {
-      type: "image/png"
-    });
+    const file = new File([blob], "ARM_Bill.png", { type: "image/png" });
 
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
-
-      try {
-        await navigator.share({
-          title: "ARM Bill",
-          text: "Return Slip",
-          files: [file]
-        });
-      } catch (e) {
-        console.log(e);
-      }
-
+      await navigator.share({
+        title: "ARM Return Slip",
+        files: [file]
+      });
     } else {
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
@@ -416,6 +369,7 @@ async function shareSnapshot() {
   });
 
 }
+
 </script>
 
 </body>

@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0" />
+
+  <title>
+    ARM Fish & Prawns Return Management
+  </title>
+
+  <!-- GOOGLE FONT -->
+
+  <link rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+  <link rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- HTML2PDF -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <style>
+
+    /* =========================
+       GLOBAL
+    ========================== */
+
+    * {
+
+      margin: 0;
+
+      padding: 0;
+
+      box-sizing: border-box;
+
+      font-family: 'Poppins', sans-serif;
+
+    }
+
+    html {
+
+      scroll-behavior: smooth;
+
+    }
+
+    body {
+
+      min-height: 100vh;
+
+      overflow-x: hidden;
+
+      background:
+        linear-gradient(
+          -45deg,
+          #091428,
+          #0f3460,
+          #1a1a2e,
+          #16213e
+        );
+
+      background-size: 400% 400%;
+
+      animation: bgMove 15s ease infinite;
+
+      position: relative;
+
+      padding: 22px;
+
+      color: white;
+
+    }
+
+    body::-webkit-scrollbar {
+
+      width: 0;
+
+      height: 0;
+
+    }
+
+    @keyframes bgMove {
+
+      0% {
+
+        background-position: 0% 50%;
+
+      }
+
+      50% {
+
+        background-position: 100% 50%;
+
+      }
+
+      100% {
+
+        background-position: 0% 50%;
+
+      }
+
+    }
+
+    /* =========================
+       FLOATING CIRCLES
+    ========================== */
+
+    .circle {
+
+      position: absolute;
+
+      border-radius: 50%;
+
+      background: rgba(255,255,255,0.08);
+
+      backdrop-filter: blur(10px);
+
+      animation: float 12s infinite ease-in-out;
+
+      z-index: 0;
+
+    }
+
+    .circle:nth-child(1) {
+
+      width: 220px;
+
+      height: 220px;
+
+      top: 5%;
+
+      left: 5%;
+
+    }
+
+    .circle:nth-child(2) {
+
+      width: 300px;
+
+      height: 300px;
+
+      bottom: 10%;
+
+      right: 10%;
+
+      animation-duration: 15s;
+
+    }
+
+    .circle:nth-child(3) {
+
+      width: 140px;
+
+      height: 140px;
+
+      top: 55%;
+
+      left: 45%;
+
+      animation-duration: 10s;
+
+    }
+
+    @keyframes float {
+
+      0%,100% {
+
+        transform: translateY(0px);
+
+      }
+
+      50% {
+
+        transform: translateY(-25px);
+
+      }
+
+    }
+
+    /* =========================
+       MAIN WRAPPER
+    ========================== */
+
+    .wrapper {
+
+      position: relative;
+
+      z-index: 10;
+
+      max-width: 950px;
+
+      margin: auto;
+
+    }
+
+    .glass-card {
+
+      background: rgba(255,255,255,0.08);
+
+      border: 1px solid rgba(255,255,255,0.15);
+
+      backdrop-filter: blur(18px);
+
+      -webkit-backdrop-filter: blur(18px);
+
+      border-radius: 28px;
+
+      padding: 24px;
+
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.35),
+        inset 0 0 0.5px rgba(255,255,255,0.3);
+
+      transition: 0.4s ease;
+
+    }
+
+    .glass-card:hover {
+
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 10px 40px rgba(0,0,0,0.45);
+
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    .header {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      flex-wrap: wrap;
+
+      gap: 15px;
+
+      margin-bottom: 20px;
+
+    }
+
+    .title-section h1 {
+
+      font-size: 1.8rem;
+
+      font-weight: 700;
+
+      letter-spacing: 0.5px;
+
+    }
+
+    .title-section p {
+
+      opacity: 0.8;
+
+      margin-top: 4px;
+
+      font-size: 0.88rem;
+
+    }
+
+    .date-box {
+
+      padding: 10px 16px;
+
+      border-radius: 16px;
+
+      background: rgba(255,255,255,0.09);
+
+      border: 1px solid rgba(255,255,255,0.1);
+
+      font-weight: 500;
+
+      white-space: nowrap;
+
+      font-size: 0.9rem;
+
+    }
+
+    /* =========================
+       FORM LAYOUT
+    ========================== */
+
+    .form-layout {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 18px;
+
+    }
+
+    .form-row {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 18px;
+
+    }
+
+    .column {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 14px;
+
+    }
+
+    .bottom-grid {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 18px;
+
+    }
+
+    .input-group {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 6px;
+
+    }
+
+    .input-group label {
+
+      font-size: 0.9rem;
+
+      font-weight: 500;
+
+      opacity: 0.9;
+
+    }
+
+    .input-group input {
+
+      width: 100%;
+
+      padding: 12px 14px;
+
+      border-radius: 14px;
+
+      border: 1px solid rgba(255,255,255,0.1);
+
+      background: rgba(255,255,255,0.08);
+
+      color: white;
+
+      outline: none;
+
+      transition: 0.3s ease;
+
+      font-size: 0.92rem;
+
+    }
+
+    .input-group input::placeholder {
+
+      color: rgba(255,255,255,0.55);
+
+    }
+
+    .input-group input:focus {
+
+      border-color: rgba(255,255,255,0.4);
+
+      background: rgba(255,255,255,0.12);
+
+      transform: translateY(-1px);
+
+    }
+
+    /* =========================
+       SUMMARY
+    ========================== */
+
+    .summary {
+
+      margin-top: 22px;
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 18px;
+
+    }
+
+    .summary-card {
+
+      background: rgba(255,255,255,0.07);
+
+      border: 1px solid rgba(255,255,255,0.08);
+
+      border-radius: 20px;
+
+      padding: 18px;
+
+      transition: 0.3s ease;
+
+    }
+
+    .summary-title {
+
+      font-size: 0.9rem;
+
+      opacity: 0.75;
+
+      margin-bottom: 8px;
+
+    }
+
+    .summary-amount {
+
+      font-size: 1.7rem;
+
+      font-weight: 700;
+
+      letter-spacing: 0.5px;
+
+    }
+
+    .minimal {
+
+      background: rgba(255,255,255,0.04);
+
+    }
+
+    .balance-card {
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(0,255,163,0.16),
+          rgba(0,194,255,0.18)
+        );
+
+      border: 1px solid rgba(255,255,255,0.15);
+
+      box-shadow:
+        0 10px 35px rgba(0,255,163,0.1);
+
+    }
+
+    /* =========================
+       BUTTONS
+    ========================== */
+
+    .button-group {
+
+      display: flex;
+
+      justify-content: center;
+
+      gap: 16px;
+
+      margin-top: 24px;
+
+      flex-wrap: wrap;
+
+    }
+
+    .btn {
+
+      border: none;
+
+      outline: none;
+
+      cursor: pointer;
+
+      padding: 13px 22px;
+
+      border-radius: 16px;
+
+      font-size: 0.92rem;
+
+      font-weight: 600;
+
+      color: white;
+
+      transition: 0.35s ease;
+
+      min-width: 170px;
+
+    }
+
+    .print-btn {
+
+      background:
+        linear-gradient(
+          135deg,
+          #5b86e5,
+          #36d1dc
+        );
+
+      box-shadow:
+        0 8px 24px rgba(54,209,220,0.35);
+
+    }
+
+    .pdf-btn {
+
+      background:
+        linear-gradient(
+          135deg,
+          #ff416c,
+          #ff4b2b
+        );
+
+      box-shadow:
+        0 8px 24px rgba(255,75,43,0.35);
+
+    }
+
+    .btn:hover {
+
+      transform:
+        translateY(-3px)
+        scale(1.02);
+
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+
+      text-align: center;
+
+      margin-top: 18px;
+
+      opacity: 0.7;
+
+      font-size: 0.82rem;
+
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media(max-width:768px) {
+
+      body {
+
+        padding: 14px;
+
+      }
+
+      .glass-card {
+
+        padding: 18px;
+
+      }
+
+      .header {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+      }
+
+      .form-row,
+      .bottom-grid,
+      .summary {
+
+        grid-template-columns: 1fr;
+
+      }
+
+      .summary-amount {
+
+        font-size: 1.45rem;
+
+      }
+
+      .btn {
+
+        width: 100%;
+
+      }
+
+    }
+
+    /* =========================
+       PRINT
+    ========================== */
+
+    @media print {
+
+      body {
+
+        background: white !important;
+
+        padding: 0 !important;
+
+      }
+
+      .circle,
+      .button-group,
+      footer {
+
+        display: none !important;
+
+      }
+
+      .glass-card {
+
+        background: white !important;
+
+        color: black !important;
+
+        box-shadow: none !important;
+
+        border: 1px solid #ddd !important;
+
+        backdrop-filter: none !important;
+
+        padding: 14px !important;
+
+        border-radius: 10px !important;
+
+      }
+
+      .summary-card,
+      .balance-card {
+
+        background: #f8f8f8 !important;
+
+        color: black !important;
+
+        box-shadow: none !important;
+
+      }
+
+      input {
+
+        color: black !important;
+
+        background: #fff !important;
+
+      }
+
+      .wrapper {
+
+        width: 100%;
+
+      }
+
+    }
+    .share-btn {
+
+        background:
+            linear-gradient(
+            135deg,
+            #11998e,
+            #38ef7d
+            );
+
+        box-shadow:
+            0 8px 24px rgba(56,239,125,0.35);
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- FLOATING CIRCLES -->
+
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+  <!-- MAIN WRAPPER -->
+
+  <div class="wrapper">
+
+    <!-- PDF CONTENT -->
+
+    <div class="glass-card"
+      id="pdfContent">
+
+      <!-- HEADER -->
+
+      <div class="header">
+
+        <div class="title-section">
+
+          <h1>
+            ARM Fish & Prawns Return Management
+          </h1>
+
+          <p>
+            Premium Return Slip Generator
+          </p>
+
+        </div>
+
+        <div class="date-box"
+          id="currentDate"></div>
+
+      </div>
+
+      <!-- FORM -->
+
+      <div class="form-layout">
+
+        <!-- VEHICLE -->
+
+        <div class="input-group">
+
+          <label>
+            Vehicle Number
+          </label>
+
+          <input
+            type="text"
+            id="vehicleNumber"
+            placeholder="Enter vehicle number"
+            style="text-transform: uppercase;">
+
+        </div>
+
+        <!-- TWO COLUMN LAYOUT -->
+
+        <div class="form-row">
+
+          <!-- LEFT SIDE -->
+
+          <div class="column">
+
+            <div class="input-group">
+
+              <label>
+                Coverlu
+              </label>
+
+              <input
+                type="text"
+                placeholder="Enter Coverlu">
+
+            </div>
+
+            <div class="input-group">
+
+              <label>
+                Bonthalu
+              </label>
+
+              <input
+                type="text"
+                placeholder="Enter Bonthalu">
+
+            </div>
+
+            <div class="input-group">
+
+              <label>
+                Barakalu
+              </label>
+
+              <input
+                type="text"
+                placeholder="Enter Barakalu">
+
+            </div>
+
+          </div>
+
+          <!-- RIGHT SIDE -->
+
+          <div class="column">
+
+            <div class="input-group">
+
+              <label>
+                Trelu Amount
+              </label>
+
+              <input
+                type="text"
+                id="treluAmount"
+                placeholder="Enter trelu amount">
+
+            </div>
+
+            <div class="input-group">
+
+              <label>
+                Return Amount
+              </label>
+
+              <input
+                type="text"
+                id="returnAmount"
+                placeholder="Enter return amount">
+
+            </div>
+
+            <div class="input-group">
+
+              <label>
+                Loading Amount
+              </label>
+
+              <input
+                type="text"
+                id="loadingAmount"
+                placeholder="Enter loading amount">
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- BOTTOM GRID -->
+
+        <div class="bottom-grid">
+
+          <div class="input-group">
+
+            <label>
+              Extra Expenses
+            </label>
+
+            <input
+              type="text"
+              id="extraExpenses"
+              placeholder="0">
+
+          </div>
+
+          <div class="input-group">
+
+            <label>
+              Advance Amount
+            </label>
+
+            <input
+              type="text"
+              id="advanceAmount"
+              placeholder="Enter advance amount">
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- SUMMARY -->
+
+      <div class="summary">
+
+        <div class="summary-card minimal">
+
+          <div class="summary-title">
+            Total Expenditure
+          </div>
+
+          <div class="summary-amount"
+            id="totalExpenditure">
+
+            ₹0
+
+          </div>
+
+        </div>
+
+        <div class="summary-card balance-card">
+
+          <div class="summary-title">
+            Balance Amount
+          </div>
+
+          <div class="summary-amount"
+            id="balanceAmount">
+
+            ₹0
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- BUTTONS -->
+
+      <div class="button-group">
+
+        <button class="btn print-btn"
+          onclick="window.print()">
+
+          Print Slip
+
+        </button>
+
+        <button class="btn pdf-btn"
+          onclick="downloadPDF()">
+
+          Download PDF
+
+        </button>
+
+        <button class="btn share-btn"
+            onclick="shareSnapshot()">
+
+            Share Snapshot
+
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+      © 2026 ARM Fish & Prawns Return Management
+
+    </footer>
+
+  </div>
+
+  <script>
+
+    /* =========================
+       DATE
+    ========================== */
+
+    const today = new Date();
+
+    document.getElementById(
+      'currentDate'
+    ).innerHTML =
+
+      today.toLocaleDateString(
+        'en-IN',
+        {
+
+          day: '2-digit',
+          month: 'long',
+          year: 'numeric'
+
+        }
+      );
+
+    /* =========================
+       VEHICLE CAPITAL
+    ========================== */
+
+    const vehicleInput =
+      document.getElementById(
+        'vehicleNumber'
+      );
+
+    vehicleInput.addEventListener(
+      'input',
+      function () {
+
+        this.value =
+          this.value.toUpperCase();
+
+      }
+    );
+
+    /* =========================
+       AMOUNT INPUTS
+    ========================== */
+
+    const amountInputs = [
+
+      'returnAmount',
+      'loadingAmount',
+      'treluAmount',
+      'extraExpenses',
+      'advanceAmount'
+
+    ];
+
+    amountInputs.forEach(id => {
+
+      const input =
+        document.getElementById(id);
+
+      input.addEventListener(
+        'input',
+        function () {
+
+          let value =
+            this.value
+            .replace(/,/g, '')
+            .replace(/[^\d]/g, '');
+
+          if (value) {
+
+            this.value =
+              Number(value)
+              .toLocaleString('en-IN');
+
+          } else {
+
+            this.value = '';
+
+          }
+
+          calculateValues();
+
+        }
+      );
+
+    });
+
+    /* =========================
+       GET NUMBER
+    ========================== */
+
+    function getNumericValue(id) {
+
+      return parseInt(
+
+        document.getElementById(id)
+        .value
+        .replace(/,/g, '')
+
+      ) || 0;
+
+    }
+
+    /* =========================
+       CALCULATIONS
+    ========================== */
+
+    function calculateValues() {
+
+      const returnAmt =
+        getNumericValue('returnAmount');
+
+      const loadingAmt =
+        getNumericValue('loadingAmount');
+
+      const treluAmt =
+        getNumericValue('treluAmount');
+
+      const extraExpenses =
+        getNumericValue('extraExpenses');
+
+      const advanceAmt =
+        getNumericValue('advanceAmount');
+
+      /* DO NOT CHANGE */
+
+      const totalExpenditure =
+
+        returnAmt +
+        loadingAmt +
+        treluAmt;
+
+      let balance =
+
+        advanceAmt -
+        totalExpenditure;
+
+      /* EXTRA EXPENSES */
+
+      balance =
+        balance -
+        extraExpenses;
+
+      document.getElementById(
+        'totalExpenditure'
+      ).innerHTML =
+
+        '₹' +
+        totalExpenditure
+        .toLocaleString('en-IN');
+
+      document.getElementById(
+        'balanceAmount'
+      ).innerHTML =
+
+        '₹' +
+        balance
+        .toLocaleString('en-IN');
+
+    }
+
+    /* =========================
+       PDF DOWNLOAD
+    ========================== */
+
+    function downloadPDF() {
+
+      const element =
+        document.getElementById(
+          'pdfContent'
+        );
+
+      const options = {
+
+        margin: 0.15,
+
+        filename:
+          'ARM_Return_Slip.pdf',
+
+        image: {
+
+          type: 'jpeg',
+          quality: 1
+
+        },
+
+        html2canvas: {
+
+          scale: 2,
+          useCORS: true,
+          scrollY: 0
+
+        },
+
+        jsPDF: {
+
+          unit: 'in',
+          format: 'a4',
+          orientation: 'portrait'
+
+        },
+
+        pagebreak: {
+
+          mode: ['avoid-all']
+
+        }
+
+      };
+
+      html2pdf()
+        .set(options)
+        .from(element)
+        .save();
+
+    }
+
+        /* =========================
+   SHARE SNAPSHOT
+========================== */
+
+async function shareSnapshot() {
+
+  const element =
+    document.getElementById('pdfContent');
+
+  const canvas =
+    await html2canvas(element, {
+
+      scale: 2,
+      useCORS: true,
+      backgroundColor: null
+
+    });
+
+  canvas.toBlob(async (blob) => {
+
+    const file =
+      new File(
+        [blob],
+        'ARM_Return_Slip.png',
+        {
+          type: 'image/png'
+        }
+      );
+
+    /* MOBILE SHARE */
+
+    if (
+      navigator.canShare &&
+      navigator.canShare({ files: [file] })
+    ) {
+
+      try {
+
+        await navigator.share({
+
+          title:
+            'ARM Return Slip',
+
+          text:
+            'Fish & Prawns Return Slip',
+
+          files: [file]
+
+        });
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    }
+
+    /* FALLBACK DOWNLOAD */
+
+    else {
+
+      const link =
+        document.createElement('a');
+
+      link.href =
+        URL.createObjectURL(blob);
+
+      link.download =
+        'ARM_Return_Slip.png';
+
+      link.click();
+
+    }
+
+  });
+
+}
+
+  </script>
+
+</body>
+
+</html>
